@@ -7,11 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ChatRoomViewController: UIViewController {
+    
+    private lazy var chatTableView = ChatTableView(frame: view.bounds)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 }
 
