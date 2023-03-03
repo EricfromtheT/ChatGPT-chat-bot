@@ -56,6 +56,7 @@
 		37E1882029B1D6C5000B8914 /* chatGPT bot */ = {
 			isa = PBXGroup;
 			children = (
+				37E1883829B1D7B4000B8914 /* Model */,
 				37E1882129B1D6C5000B8914 /* AppDelegate.swift */,
 				37E1882329B1D6C5000B8914 /* SceneDelegate.swift */,
 				37E1882529B1D6C6000B8914 /* ViewController.swift */,
@@ -65,6 +66,13 @@
 				37E1882F29B1D6C7000B8914 /* Info.plist */,
 			);
 			path = "chatGPT bot";
+			sourceTree = "<group>";
+		};
+		37E1883829B1D7B4000B8914 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

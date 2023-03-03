@@ -133,6 +133,6 @@ iOSInjectionProject/
 
 **/GoogleService-Info.plist
 **/*.p8
-APInfo.swift
+APIInfo.swift
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,macos
