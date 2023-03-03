@@ -13,6 +13,10 @@
 		37E1882929B1D6C6000B8914 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37E1882729B1D6C6000B8914 /* Main.storyboard */; };
 		37E1882B29B1D6C7000B8914 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37E1882A29B1D6C7000B8914 /* Assets.xcassets */; };
 		37E1882E29B1D6C7000B8914 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37E1882C29B1D6C7000B8914 /* LaunchScreen.storyboard */; };
+		37E1883C29B1D81D000B8914 /* APIInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1883B29B1D81D000B8914 /* APIInfo.swift */; };
+		37E1883E29B1D865000B8914 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1883D29B1D865000B8914 /* ChatManager.swift */; };
+		37E1884029B1DF37000B8914 /* UserMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1883F29B1DF37000B8914 /* UserMessage.swift */; };
+		37E1884229B1E906000B8914 /* BotResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1884129B1E906000B8914 /* BotResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		37E1882A29B1D6C7000B8914 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37E1882D29B1D6C7000B8914 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37E1882F29B1D6C7000B8914 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37E1883B29B1D81D000B8914 /* APIInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInfo.swift; sourceTree = "<group>"; };
+		37E1883D29B1D865000B8914 /* ChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
+		37E1883F29B1DF37000B8914 /* UserMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessage.swift; sourceTree = "<group>"; };
+		37E1884129B1E906000B8914 /* BotResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,10 @@
 		37E1883829B1D7B4000B8914 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				37E1883B29B1D81D000B8914 /* APIInfo.swift */,
+				37E1883D29B1D865000B8914 /* ChatManager.swift */,
+				37E1883F29B1DF37000B8914 /* UserMessage.swift */,
+				37E1884129B1E906000B8914 /* BotResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -146,8 +158,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37E1884029B1DF37000B8914 /* UserMessage.swift in Sources */,
+				37E1883E29B1D865000B8914 /* ChatManager.swift in Sources */,
+				37E1884229B1E906000B8914 /* BotResponse.swift in Sources */,
 				37E1882629B1D6C6000B8914 /* ViewController.swift in Sources */,
 				37E1882229B1D6C5000B8914 /* AppDelegate.swift in Sources */,
+				37E1883C29B1D81D000B8914 /* APIInfo.swift in Sources */,
 				37E1882429B1D6C5000B8914 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
