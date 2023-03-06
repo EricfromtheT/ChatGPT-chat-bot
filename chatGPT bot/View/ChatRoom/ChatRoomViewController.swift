@@ -88,7 +88,8 @@ class ChatRoomViewController: UIViewController {
             
             chatBaseView.promptTextView.textViewPublisher
                 .sink { [weak self] message in
-                    self?.sentText = message
+                    guard let self = self else { return }
+                    self.sentText = message
                 }
                 .store(in: &bindings)
             
@@ -103,9 +104,10 @@ class ChatRoomViewController: UIViewController {
             chatViewModel.reply
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] reply in
+                    guard let self = self else { return }
                     let info = ContentInfo(type: .fromBot, data: reply)
-                    self?.contents.append(info)
-                    self?.configureSnapshot()
+                    self.contents.append(info)
+                    self.configureSnapshot()
                 }
                 .store(in: &bindings)
                 
@@ -121,7 +123,9 @@ class ChatRoomViewController: UIViewController {
         configureSnapshot()
         Just("buttom was clicked")
             .sink { [weak self] _ in
-                self?.chatBaseView.promptTextView.text = ""
+                guard let self = self else { return }
+                self.chatBaseView.promptTextView.text = ""
+                self.chatBaseView.animateTextView(self.chatBaseView.promptTextView)
             }
             .store(in: &bindings)
         chatViewModel.getBotResponse()

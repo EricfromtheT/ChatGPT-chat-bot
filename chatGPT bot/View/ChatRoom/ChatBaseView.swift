@@ -37,7 +37,7 @@ class ChatBaseView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addSubViews() {
+    private func addSubViews() {
         addSubview(senderBackView)
         senderBackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -54,7 +54,7 @@ class ChatBaseView: UIView {
         sendButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         promptHeightAnchor = promptTextView.heightAnchor.constraint(equalToConstant: promptTextViewHeight)
         
         NSLayoutConstraint.activate([
@@ -76,7 +76,7 @@ class ChatBaseView: UIView {
         ])
     }
     
-    func setUpLook() {
+    private func setUpLook() {
         backgroundColor = .black
         senderStack.spacing = 15
         senderStack.axis = .horizontal
@@ -99,7 +99,7 @@ class ChatBaseView: UIView {
         sendButton.isEnabled = false
     }
     
-    func switchButtonStatus(canBeOpend: Bool) {
+    private func switchButtonStatus(canBeOpend: Bool) {
         if canBeOpend {
             sendButton.backgroundColor = .systemPink
             sendButton.isEnabled = true
@@ -122,10 +122,8 @@ class ChatBaseView: UIView {
         let additionHeight = textView.font!.lineHeight*CGFloat(change)
         return promptTextViewHeight + additionHeight
     }
-}
-
-extension ChatBaseView: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
+    
+    func animateTextView(_ textView: UITextView) {
         var numberOfLines: Int
         numberOfLines = Int(textView.contentSize.height/textView.font!.lineHeight)
         if numberOfLines != lastNumberOfLinesWithText, lastNumberOfLinesWithText < 5 {
@@ -142,5 +140,11 @@ extension ChatBaseView: UITextViewDelegate {
                 self.lastNumberOfLinesWithText = numberOfLines
             }
         }
+    }
+}
+
+extension ChatBaseView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        animateTextView(textView)
     }
 }
