@@ -82,7 +82,7 @@ class ChatBaseView: UIView {
         senderStack.axis = .horizontal
         
         promptTextView.backgroundColor = UIColor.asset(.messageField)
-        promptTextView.font = UIFont.systemFont(ofSize: 14)
+        promptTextView.font = UIFont.systemFont(ofSize: 16)
         promptTextView.layer.cornerRadius = 4
         promptTextView.layer.masksToBounds = true
         promptTextView.layer.borderWidth = 1
