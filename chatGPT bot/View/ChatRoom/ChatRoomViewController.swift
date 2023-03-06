@@ -121,13 +121,8 @@ class ChatRoomViewController: UIViewController {
         let info = ContentInfo(type: .fromUser, data: sentText)
         contents.append(info)
         configureSnapshot()
-        Just("buttom was clicked")
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.chatBaseView.promptTextView.text = ""
-                self.chatBaseView.animateTextView(self.chatBaseView.promptTextView)
-            }
-            .store(in: &bindings)
+        chatBaseView.promptTextView.text = ""
+        chatBaseView.animateInputBox(to: 0)
         chatViewModel.getBotResponse()
     }
     

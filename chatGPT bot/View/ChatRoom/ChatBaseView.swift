@@ -15,8 +15,10 @@ class ChatBaseView: UIView {
     let chatTableView = ChatTableView()
     let senderStack = UIStackView()
     private var lastNumberOfLinesWithText = 1
+    private var originalTextViewHeight = CGFloat(40)
     private var promptTextViewHeight = CGFloat(40)
     private var promptHeightAnchor = NSLayoutConstraint()
+    private let maximumLine = 5
     
     var isValid: Bool = false {
         didSet {
@@ -86,9 +88,9 @@ class ChatBaseView: UIView {
         promptTextView.layer.cornerRadius = 4
         promptTextView.layer.masksToBounds = true
         promptTextView.layer.borderWidth = 1
-        promptTextView.textContainerInset = UIEdgeInsets(top: 12,
+        promptTextView.textContainerInset = UIEdgeInsets(top: 10,
                                                          left: 5,
-                                                         bottom: 0,
+                                                         bottom: 4,
                                                          right: 5)
         
         senderBackView.backgroundColor = UIColor.asset(.ChatBackColor)
@@ -123,28 +125,34 @@ class ChatBaseView: UIView {
         return promptTextViewHeight + additionHeight
     }
     
-    func animateTextView(_ textView: UITextView) {
-        var numberOfLines: Int
-        numberOfLines = Int(textView.contentSize.height/textView.font!.lineHeight)
-        if numberOfLines != lastNumberOfLinesWithText, lastNumberOfLinesWithText < 5 {
-            let newHeight = heightForTextView(textView, with: numberOfLines)
-            promptHeightAnchor.isActive = false
-            UIView.animate(withDuration: 0) { [weak self] in
-                guard let self = self else { return }
-                self.promptHeightAnchor = self.promptTextView.heightAnchor.constraint(equalToConstant: newHeight)
-                self.promptHeightAnchor.isActive = true
-                self.layoutIfNeeded()
-            } completion: { [weak self] _ in
-                guard let self = self else { return }
-                self.promptTextViewHeight = newHeight
-                self.lastNumberOfLinesWithText = numberOfLines
-            }
+    func animateInputBox(to height: CGFloat) {
+        promptHeightAnchor.isActive = false
+        UIView.animate(withDuration: 0) { [weak self] in
+            guard let self = self else { return }
+            self.promptHeightAnchor = self.promptTextView.heightAnchor.constraint(equalToConstant: height)
+            self.promptHeightAnchor.isActive = true
+            self.layoutIfNeeded()
+        } completion: { [weak self] _ in
+            guard let self = self else { return }
+            self.promptTextViewHeight = height
+        }
+        
+        if height == 0 {
+            lastNumberOfLinesWithText = 1
         }
     }
 }
 
 extension ChatBaseView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        animateTextView(textView)
+        var numberOfLines: Int
+        var newHeight: CGFloat
+        numberOfLines = Int(textView.contentSize.height/textView.font!.lineHeight)
+        newHeight = heightForTextView(textView, with: numberOfLines)
+        
+        if numberOfLines+lastNumberOfLinesWithText < maximumLine*2 {
+            animateInputBox(to: newHeight)
+        }
+        lastNumberOfLinesWithText = numberOfLines
     }
 }
