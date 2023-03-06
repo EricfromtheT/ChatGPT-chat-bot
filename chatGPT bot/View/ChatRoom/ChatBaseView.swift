@@ -8,14 +8,26 @@
 import UIKit
 
 class ChatBaseView: UIView {
+    
     let promptTextView = UITextView()
     let senderBackView = UIView()
     let sendButton = UIButton()
     let chatTableView = ChatTableView()
     let senderStack = UIStackView()
+    private var lastNumberOfLinesWithText = 1
+    private var promptTextViewHeight = CGFloat(40)
+    private var promptHeightAnchor = NSLayoutConstraint()
+    
+    var isValid: Bool = false {
+        didSet {
+            switchButtonStatus(canBeOpend: isValid)
+        }
+    }
     
     init() {
         super.init(frame: .zero)
+        promptTextView.delegate = self
+        backgroundColor = UIColor.asset(.ChatBackColor)
         addSubViews()
         setConstraints()
         setUpLook()
@@ -43,14 +55,20 @@ class ChatBaseView: UIView {
     }
     
     func setConstraints() {
+        promptHeightAnchor = promptTextView.heightAnchor.constraint(equalToConstant: promptTextViewHeight)
+        
         NSLayoutConstraint.activate([
-            senderBackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            senderBackView.heightAnchor.constraint(equalToConstant: 60),
-            senderBackView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor),
+            senderBackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            senderBackView.widthAnchor.constraint(equalTo: self.widthAnchor),
             
             senderStack.centerXAnchor.constraint(equalTo: senderBackView.centerXAnchor),
-            senderStack.centerYAnchor.constraint(equalTo: senderBackView.centerYAnchor),
+            senderStack.topAnchor.constraint(equalTo: senderBackView.topAnchor, constant: 10),
+            senderStack.bottomAnchor.constraint(equalTo: senderBackView.bottomAnchor, constant: 10),
+            
             promptTextView.widthAnchor.constraint(equalTo: senderBackView.widthAnchor, multiplier: 0.7),
+            promptHeightAnchor,
+            
+            sendButton.widthAnchor.constraint(equalTo: senderBackView.widthAnchor, multiplier: 0.15),
             
             chatTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             chatTableView.bottomAnchor.constraint(equalTo: senderBackView.topAnchor),
@@ -62,11 +80,67 @@ class ChatBaseView: UIView {
         backgroundColor = .black
         senderStack.spacing = 15
         senderStack.axis = .horizontal
-        promptTextView.backgroundColor = .systemBackground
-        promptTextView.font = UIFont.systemFont(ofSize: 21)
-        senderBackView.backgroundColor = .black
-        sendButton.backgroundColor = .label
-        sendButton.setTitle("Send", for: .normal)
+        
+        promptTextView.backgroundColor = UIColor.asset(.messageField)
+        promptTextView.font = UIFont.systemFont(ofSize: 14)
+        promptTextView.layer.cornerRadius = 4
+        promptTextView.layer.masksToBounds = true
+        promptTextView.layer.borderWidth = 1
+        promptTextView.textContainerInset = UIEdgeInsets(top: 12,
+                                                         left: 5,
+                                                         bottom: 0,
+                                                         right: 5)
+        
+        senderBackView.backgroundColor = UIColor.asset(.ChatBackColor)
+        
+        sendButton.backgroundColor = .systemGray3
+        sendButton.layer.cornerRadius = 15
+        sendButton.setTitle("send", for: .normal)
         sendButton.isEnabled = false
+    }
+    
+    func switchButtonStatus(canBeOpend: Bool) {
+        if canBeOpend {
+            sendButton.backgroundColor = .systemPink
+            sendButton.isEnabled = true
+        } else {
+            sendButton.backgroundColor = .systemGray3
+            sendButton.isEnabled = false
+        }
+    }
+    
+    func renewView(numOfRow: Int) {
+        if numOfRow > 0 {
+            chatTableView.scrollToRow(at: IndexPath(row: numOfRow-1, section: 0),
+                                      at: .top,
+                                      animated: true)
+        }
+    }
+    
+    func heightForTextView(_ textView: UITextView, with currentLines: Int) -> CGFloat {
+        let change = currentLines - lastNumberOfLinesWithText
+        let additionHeight = textView.font!.lineHeight*CGFloat(change)
+        return promptTextViewHeight + additionHeight
+    }
+}
+
+extension ChatBaseView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        var numberOfLines: Int
+        numberOfLines = Int(textView.contentSize.height/textView.font!.lineHeight)
+        if numberOfLines != lastNumberOfLinesWithText, lastNumberOfLinesWithText < 5 {
+            let newHeight = heightForTextView(textView, with: numberOfLines)
+            promptHeightAnchor.isActive = false
+            UIView.animate(withDuration: 0) { [weak self] in
+                guard let self = self else { return }
+                self.promptHeightAnchor = self.promptTextView.heightAnchor.constraint(equalToConstant: newHeight)
+                self.promptHeightAnchor.isActive = true
+                self.layoutIfNeeded()
+            } completion: { [weak self] _ in
+                guard let self = self else { return }
+                self.promptTextViewHeight = newHeight
+                self.lastNumberOfLinesWithText = numberOfLines
+            }
+        }
     }
 }

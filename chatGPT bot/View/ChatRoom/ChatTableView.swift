@@ -11,7 +11,7 @@ final class ChatTableView: UITableView {
     
     init() {
         super.init(frame: .zero, style: .plain)
-        backgroundColor = .systemGray5
+        backgroundColor = UIColor.asset(.ChatBackColor)
         separatorStyle = .none
         register(UINib(nibName: UserMessageCell.identifier, bundle: nil),
                  forCellReuseIdentifier: UserMessageCell.identifier)

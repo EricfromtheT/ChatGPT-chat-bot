@@ -7,19 +7,20 @@
 
 import UIKit
 
-class BotMessageCell: UITableViewCell {
+class BotMessageCell: UITableViewCell, ChatCell {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        backgroundColor = .clear
+        selectionStyle = .none
+        backView.layer.cornerRadius = 10
+        backView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configure(data: ContentInfo) {
+        messageLabel.text = data.data
     }
     
 }
