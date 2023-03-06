@@ -27,7 +27,8 @@ final class ChatViewModel {
                     self.reply.send(reply.trimmingCharacters(in: .whitespacesAndNewlines))
                     isAllowedToSend = true
                 } catch {
-                    print("Function: \(#function) has error of \(error)")
+                    print("Function: \(#function) has error of \(error.localizedDescription)")
+                    self.reply.send("⚠️internet problem: please send your message again or check your connection")
                     isAllowedToSend = true
                 }
             }
