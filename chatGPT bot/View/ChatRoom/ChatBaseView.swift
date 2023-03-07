@@ -15,7 +15,7 @@ class ChatBaseView: UIView {
     let chatTableView = ChatTableView()
     let senderStack = UIStackView()
     private var lastNumberOfLinesWithText = 1
-    private var originalTextViewHeight = CGFloat(40)
+    let originTextViewHeight = CGFloat(40)
     private var promptTextViewHeight = CGFloat(40)
     private var promptHeightAnchor = NSLayoutConstraint()
     private let maximumLine = 5
@@ -57,7 +57,7 @@ class ChatBaseView: UIView {
     }
     
     private func setConstraints() {
-        promptHeightAnchor = promptTextView.heightAnchor.constraint(equalToConstant: promptTextViewHeight)
+        promptHeightAnchor = promptTextView.heightAnchor.constraint(equalToConstant: originTextViewHeight)
         
         NSLayoutConstraint.activate([
             senderBackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -126,18 +126,17 @@ class ChatBaseView: UIView {
     }
     
     func animateInputBox(to height: CGFloat) {
-        promptHeightAnchor.isActive = false
+    
         UIView.animate(withDuration: 0) { [weak self] in
             guard let self = self else { return }
-            self.promptHeightAnchor = self.promptTextView.heightAnchor.constraint(equalToConstant: height)
-            self.promptHeightAnchor.isActive = true
+            self.promptHeightAnchor.constant = height
             self.layoutIfNeeded()
         } completion: { [weak self] _ in
             guard let self = self else { return }
             self.promptTextViewHeight = height
         }
         
-        if height == 0 {
+        if height == originTextViewHeight {
             lastNumberOfLinesWithText = 1
         }
     }

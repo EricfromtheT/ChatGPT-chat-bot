@@ -27,9 +27,13 @@ class ChatRoomViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.asset(.ChatBackColor)
         addCustomViews()
-        setConstraints()
         setUpBindings()
         setTarget()
+    }
+    
+    override func updateViewConstraints() {
+        setConstraints()
+        super.updateViewConstraints()
     }
     
     private func addCustomViews() {
@@ -122,7 +126,8 @@ class ChatRoomViewController: UIViewController {
         contents.append(info)
         configureSnapshot()
         chatBaseView.promptTextView.text = ""
-        chatBaseView.animateInputBox(to: 0)
+        chatBaseView.isValid = false
+        chatBaseView.animateInputBox(to: chatBaseView.originTextViewHeight)
         chatViewModel.getBotResponse()
     }
     
