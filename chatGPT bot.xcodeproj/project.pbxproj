@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37CAF2F129B74CDC002C4202 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 37CAF2F029B74CDC002C4202 /* Lottie */; };
+		37CAF2F429B74D0B002C4202 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAF2F229B74D0B002C4202 /* LoadingCell.swift */; };
+		37CAF2F829B7510C002C4202 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 37CAF2F729B7510C002C4202 /* loading.json */; };
 		37CCF5D629B210EC00888C20 /* ChatBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCF5D529B210EC00888C20 /* ChatBaseView.swift */; };
 		37CCF5D829B22F8B00888C20 /* UITextView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCF5D729B22F8B00888C20 /* UITextView+Ex.swift */; };
 		37CCF5DA29B22FF500888C20 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CCF5D929B22FF500888C20 /* ChatViewModel.swift */; };
@@ -32,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37CAF2F229B74D0B002C4202 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
+		37CAF2F729B7510C002C4202 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		37CCF5D529B210EC00888C20 /* ChatBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBaseView.swift; sourceTree = "<group>"; };
 		37CCF5D729B22F8B00888C20 /* UITextView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ex.swift"; sourceTree = "<group>"; };
 		37CCF5D929B22FF500888C20 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
@@ -63,12 +68,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37CAF2F129B74CDC002C4202 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37CAF2F629B750F7002C4202 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				37E1882A29B1D6C7000B8914 /* Assets.xcassets */,
+				37CAF2F729B7510C002C4202 /* loading.json */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		37CCF5DD29B25DBB00888C20 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +111,7 @@
 		37E1882029B1D6C5000B8914 /* chatGPT bot */ = {
 			isa = PBXGroup;
 			children = (
+				37CAF2F629B750F7002C4202 /* Resource */,
 				37CCF5DD29B25DBB00888C20 /* Protocol */,
 				37E1885129B1FAF9000B8914 /* Extension */,
 				37E1884629B1F957000B8914 /* ViewModel */,
@@ -103,7 +119,6 @@
 				37E1883829B1D7B4000B8914 /* Model */,
 				37E1882129B1D6C5000B8914 /* AppDelegate.swift */,
 				37E1882329B1D6C5000B8914 /* SceneDelegate.swift */,
-				37E1882A29B1D6C7000B8914 /* Assets.xcassets */,
 				37E1882C29B1D6C7000B8914 /* LaunchScreen.storyboard */,
 				37E1882F29B1D6C7000B8914 /* Info.plist */,
 			);
@@ -154,6 +169,7 @@
 			children = (
 				37E1884929B1FA5D000B8914 /* UserMessageCell.swift */,
 				37E1884D29B1FA70000B8914 /* BotMessageCell.swift */,
+				37CAF2F229B74D0B002C4202 /* LoadingCell.swift */,
 				37E1884A29B1FA5D000B8914 /* UserMessageCell.xib */,
 				37E1884E29B1FA70000B8914 /* BotMessageCell.xib */,
 			);
@@ -187,6 +203,9 @@
 			dependencies = (
 			);
 			name = "chatGPT bot";
+			packageProductDependencies = (
+				37CAF2F029B74CDC002C4202 /* Lottie */,
+			);
 			productName = "chatGPT bot";
 			productReference = 37E1881E29B1D6C5000B8914 /* chatGPT bot.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +234,9 @@
 				Base,
 			);
 			mainGroup = 37E1881529B1D6C5000B8914;
+			packageReferences = (
+				37CAF2EF29B74CDC002C4202 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			productRefGroup = 37E1881F29B1D6C5000B8914 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -232,6 +254,7 @@
 				37E1882E29B1D6C7000B8914 /* LaunchScreen.storyboard in Resources */,
 				37E1885029B1FA70000B8914 /* BotMessageCell.xib in Resources */,
 				37E1882B29B1D6C7000B8914 /* Assets.xcassets in Resources */,
+				37CAF2F829B7510C002C4202 /* loading.json in Resources */,
 				37E1884C29B1FA5D000B8914 /* UserMessageCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +284,7 @@
 				37E1882429B1D6C5000B8914 /* SceneDelegate.swift in Sources */,
 				37CCF5DA29B22FF500888C20 /* ChatViewModel.swift in Sources */,
 				37CCF5D629B210EC00888C20 /* ChatBaseView.swift in Sources */,
+				37CAF2F429B74D0B002C4202 /* LoadingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +492,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		37CAF2EF29B74CDC002C4202 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		37CAF2F029B74CDC002C4202 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37CAF2EF29B74CDC002C4202 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 37E1881629B1D6C5000B8914 /* Project object */;
 }

@@ -79,7 +79,7 @@ class ChatBaseView: UIView {
     private func setUpLook() {
         backgroundColor = .black
         
-        promptTextView.backgroundColor = UIColor.asset(.messageField)
+        promptTextView.backgroundColor = UIColor.asset(.botChat)
         promptTextView.font = UIFont.systemFont(ofSize: 16)
         promptTextView.layer.cornerRadius = 15
         promptTextView.textContainerInset = UIEdgeInsets(top: 10,

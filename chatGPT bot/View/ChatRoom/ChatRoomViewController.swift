@@ -23,6 +23,7 @@ class ChatRoomViewController: UIViewController {
     var bottomConstraints = NSLayoutConstraint()
     var topConstraints = NSLayoutConstraint()
 
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.asset(.ChatBackColor)
@@ -31,6 +32,7 @@ class ChatRoomViewController: UIViewController {
         setTarget()
     }
     
+    // MARK: Layout
     override func updateViewConstraints() {
         setConstraints()
         super.updateViewConstraints()
@@ -53,14 +55,7 @@ class ChatRoomViewController: UIViewController {
         ])
     }
     
-    private func setTarget() {
-        chatBaseView.sendButton.addTarget(self, action: #selector(tryToSendMessage), for: .touchUpInside)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(touch))
-        tap.cancelsTouchesInView = false
-        chatBaseView.chatTableView.addGestureRecognizer(tap)
-    }
-    
+    // MARK: DataSource
     private func createDataSource() -> DataSource {
         return DataSource(tableView: chatBaseView.chatTableView) {
             tableView, indexPath, data in
@@ -81,6 +76,7 @@ class ChatRoomViewController: UIViewController {
         chatBaseView.renewView(numOfRow: contents.count)
     }
     
+    // MARK: Bindins
     private func setUpBindings() {
         keyboardFrameSubscription
             .store(in: &bindings)
@@ -111,6 +107,7 @@ class ChatRoomViewController: UIViewController {
                     guard let self = self else { return }
                     let info = ContentInfo(type: .fromBot, data: reply)
                     self.contents.append(info)
+                    self.endLoading()
                     self.configureSnapshot()
                 }
                 .store(in: &bindings)
@@ -125,10 +122,30 @@ class ChatRoomViewController: UIViewController {
         let info = ContentInfo(type: .fromUser, data: sentText)
         contents.append(info)
         configureSnapshot()
+        startLoading()
         chatBaseView.promptTextView.text = ""
         chatBaseView.isValid = false
         chatBaseView.animateInputBox(to: chatBaseView.originTextViewHeight)
         chatViewModel.getBotResponse()
+    }
+    
+    private func startLoading() {
+        let info = ContentInfo(type: .loading, data: "loading")
+        contents.append(info)
+        configureSnapshot()
+    }
+    
+    private func endLoading() {
+        contents.remove(at: contents.count-2)
+    }
+    
+    
+    private func setTarget() {
+        chatBaseView.sendButton.addTarget(self, action: #selector(tryToSendMessage), for: .touchUpInside)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(touch))
+        tap.cancelsTouchesInView = false
+        chatBaseView.chatTableView.addGestureRecognizer(tap)
     }
     
     @objc private func touch() {

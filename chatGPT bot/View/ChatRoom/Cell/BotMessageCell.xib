@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" name="messageField"/>
+                        <color key="backgroundColor" name="botChat"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="cYW-zU-nLt" secondAttribute="bottom" constant="10" id="32h-Gv-onm"/>
                             <constraint firstItem="cYW-zU-nLt" firstAttribute="leading" secondItem="IMd-9o-RCZ" secondAttribute="leading" constant="10" id="ID5-8R-dqG"/>
@@ -52,7 +52,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <namedColor name="messageField">
+        <namedColor name="botChat">
             <color red="0.92156862745098034" green="0.92549019607843142" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
