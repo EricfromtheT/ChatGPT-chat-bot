@@ -13,7 +13,6 @@ class ChatBaseView: UIView {
     let senderBackView = UIView()
     let sendButton = UIButton()
     let chatTableView = ChatTableView()
-    let senderStack = UIStackView()
     private var lastNumberOfLinesWithText = 1
     let originTextViewHeight = CGFloat(40)
     private var promptTextViewHeight = CGFloat(40)
@@ -46,31 +45,30 @@ class ChatBaseView: UIView {
         addSubview(chatTableView)
         chatTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        senderBackView.addSubview(senderStack)
-        senderStack.translatesAutoresizingMaskIntoConstraints = false
-        
-        senderStack.addArrangedSubview(promptTextView)
+        senderBackView.addSubview(promptTextView)
         promptTextView.translatesAutoresizingMaskIntoConstraints = false
 
-        senderStack.addArrangedSubview(sendButton)
+        promptTextView.addSubview(sendButton)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setConstraints() {
+        let screenWidth = UIScreen.main.bounds.width
+        
         promptHeightAnchor = promptTextView.heightAnchor.constraint(equalToConstant: originTextViewHeight)
         
         NSLayoutConstraint.activate([
             senderBackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             senderBackView.widthAnchor.constraint(equalTo: self.widthAnchor),
             
-            senderStack.centerXAnchor.constraint(equalTo: senderBackView.centerXAnchor),
-            senderStack.topAnchor.constraint(equalTo: senderBackView.topAnchor, constant: 10),
-            senderStack.bottomAnchor.constraint(equalTo: senderBackView.bottomAnchor, constant: 10),
-            
-            promptTextView.widthAnchor.constraint(equalTo: senderBackView.widthAnchor, multiplier: 0.7),
+            promptTextView.widthAnchor.constraint(equalTo: senderBackView.widthAnchor, multiplier: 0.8),
             promptHeightAnchor,
+            promptTextView.centerXAnchor.constraint(equalTo: senderBackView.centerXAnchor),
+            promptTextView.topAnchor.constraint(equalTo: senderBackView.topAnchor, constant: 10),
+            promptTextView.bottomAnchor.constraint(equalTo: senderBackView.bottomAnchor),
             
-            sendButton.widthAnchor.constraint(equalTo: senderBackView.widthAnchor, multiplier: 0.15),
+            sendButton.bottomAnchor.constraint(equalTo: senderBackView.bottomAnchor, constant: -8),
+            sendButton.leadingAnchor.constraint(equalTo: promptTextView.leadingAnchor, constant: screenWidth*0.7),
             
             chatTableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             chatTableView.bottomAnchor.constraint(equalTo: senderBackView.topAnchor),
@@ -80,33 +78,28 @@ class ChatBaseView: UIView {
     
     private func setUpLook() {
         backgroundColor = .black
-        senderStack.spacing = 15
-        senderStack.axis = .horizontal
         
         promptTextView.backgroundColor = UIColor.asset(.messageField)
         promptTextView.font = UIFont.systemFont(ofSize: 16)
-        promptTextView.layer.cornerRadius = 4
-        promptTextView.layer.masksToBounds = true
-        promptTextView.layer.borderWidth = 1
+        promptTextView.layer.cornerRadius = 15
         promptTextView.textContainerInset = UIEdgeInsets(top: 10,
                                                          left: 5,
                                                          bottom: 4,
-                                                         right: 5)
+                                                         right: 40)
         
         senderBackView.backgroundColor = UIColor.asset(.ChatBackColor)
         
-        sendButton.backgroundColor = .systemGray3
-        sendButton.layer.cornerRadius = 15
-        sendButton.setTitle("send", for: .normal)
+        sendButton.backgroundColor = .clear
+        sendButton.setImage(UIImage(systemName: "paperplane"), for: .normal)
         sendButton.isEnabled = false
     }
     
     private func switchButtonStatus(canBeOpend: Bool) {
         if canBeOpend {
-            sendButton.backgroundColor = .systemPink
+            sendButton.tintColor = .systemBlue
             sendButton.isEnabled = true
         } else {
-            sendButton.backgroundColor = .systemGray3
+            sendButton.tintColor = .systemGray3
             sendButton.isEnabled = false
         }
     }
@@ -151,6 +144,8 @@ extension ChatBaseView: UITextViewDelegate {
         
         if numberOfLines+lastNumberOfLinesWithText < maximumLine*2 {
             animateInputBox(to: newHeight)
+        } else if textView.text == "" {
+            animateInputBox(to: originTextViewHeight)
         }
         lastNumberOfLinesWithText = numberOfLines
     }
