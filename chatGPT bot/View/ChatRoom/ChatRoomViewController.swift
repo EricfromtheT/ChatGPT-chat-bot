@@ -26,7 +26,7 @@ class ChatRoomViewController: UIViewController {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.asset(.ChatBackColor)
+        view.backgroundColor = .systemGray3
         addCustomViews()
         setUpBindings()
         setTarget()
@@ -125,7 +125,7 @@ class ChatRoomViewController: UIViewController {
         startLoading()
         chatBaseView.promptTextView.text = ""
         chatBaseView.isValid = false
-        chatBaseView.animateInputBox(to: chatBaseView.originTextViewHeight)
+        chatBaseView.animateInputBox(mode: .original)
         chatViewModel.getBotResponse()
     }
     
