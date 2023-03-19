@@ -17,6 +17,7 @@ final class ChatTableView: UITableView {
                  forCellReuseIdentifier: UserMessageCell.identifier)
         register(UINib(nibName: BotMessageCell.identifier, bundle: nil),
                  forCellReuseIdentifier: BotMessageCell.identifier)
+        register(LoadingCell.self, forCellReuseIdentifier: LoadingCell.identifier)
     }
     
     required init?(coder: NSCoder) {

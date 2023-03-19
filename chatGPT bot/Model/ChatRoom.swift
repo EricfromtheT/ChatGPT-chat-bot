@@ -14,6 +14,7 @@ protocol ChatCell: UITableViewCell {
 enum CellType: Int, CaseIterable {
     case fromUser
     case fromBot
+    case loading
     
     var cellIdentifier: String {
         switch self {
@@ -21,6 +22,8 @@ enum CellType: Int, CaseIterable {
             return UserMessageCell.identifier
         case .fromBot:
             return BotMessageCell.identifier
+        case .loading:
+            return LoadingCell.identifier
         }
     }
 }

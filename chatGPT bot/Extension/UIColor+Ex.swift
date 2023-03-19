@@ -9,7 +9,7 @@ import UIKit
 
 enum assetColor: String {
     case ChatBackColor
-    case messageField
+    case botChat
     case userChat
 }
 

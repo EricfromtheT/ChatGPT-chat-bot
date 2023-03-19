@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum InputMode {
+    case customed(height: CGFloat)
+    case original
+}
+
 class ChatBaseView: UIView {
     
     let promptTextView = UITextView()
@@ -79,7 +84,7 @@ class ChatBaseView: UIView {
     private func setUpLook() {
         backgroundColor = .black
         
-        promptTextView.backgroundColor = UIColor.asset(.messageField)
+        promptTextView.backgroundColor = UIColor.asset(.botChat)
         promptTextView.font = UIFont.systemFont(ofSize: 16)
         promptTextView.layer.cornerRadius = 15
         promptTextView.textContainerInset = UIEdgeInsets(top: 10,
@@ -87,7 +92,7 @@ class ChatBaseView: UIView {
                                                          bottom: 4,
                                                          right: 40)
         
-        senderBackView.backgroundColor = UIColor.asset(.ChatBackColor)
+        senderBackView.backgroundColor = .systemGray3
         
         sendButton.backgroundColor = .clear
         sendButton.setImage(UIImage(systemName: "paperplane"), for: .normal)
@@ -118,7 +123,14 @@ class ChatBaseView: UIView {
         return promptTextViewHeight + additionHeight
     }
     
-    func animateInputBox(to height: CGFloat) {
+    func animateInputBox(mode: InputMode) {
+        var height: CGFloat
+        switch mode {
+        case .customed(let givenHeight):
+            height = givenHeight
+        case .original:
+            height = originTextViewHeight
+        }
     
         UIView.animate(withDuration: 0) { [weak self] in
             guard let self = self else { return }
@@ -143,9 +155,9 @@ extension ChatBaseView: UITextViewDelegate {
         newHeight = heightForTextView(textView, with: numberOfLines)
         
         if numberOfLines+lastNumberOfLinesWithText < maximumLine*2 {
-            animateInputBox(to: newHeight)
+            animateInputBox(mode: .customed(height: newHeight))
         } else if textView.text == "" {
-            animateInputBox(to: originTextViewHeight)
+            animateInputBox(mode: .original)
         }
         lastNumberOfLinesWithText = numberOfLines
     }
